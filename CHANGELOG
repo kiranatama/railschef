@@ -1,0 +1,10 @@
+0.1.1 (December th, 2011)
+
+* Add 'skip-home' as options which make home controller, view and routes become optional.
+* Make 'login' and 'logout' as option.
+* Add 'omniauth' feature as option.
+* Various bugfixes.
+
+0.1.0 (November 25th, 2011)
+
+* initial release

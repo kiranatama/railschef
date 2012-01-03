@@ -1,0 +1,29 @@
+<%% title "<%= login_name_title %>" %>
+
+<%%= form_for @<%= session_singular_name %>, :url => {:action => "create"} do |f| %>
+  <%%= f.error_messages %>
+  <p>
+    <%%= f.label :login %><br />
+    <%%= f.text_field :login %>
+  </p>
+  <p>
+    <%%= f.label :password %><br />
+    <%%= f.password_field :password %>
+  </p>
+  <p>
+    <%%= f.check_box :remember_me %>
+    <%%= f.label :remember_me %>
+  </p>
+  <p>
+    <%%= f.submit "<%= login_name_title %>" %><br />
+    <%%= link_to "Registration", new_<%= user_singular_name %>_url %><br />
+    <%%= link_to "Forgot password?", forgot_password_url %><br />
+  </p>
+  <%- if options.omniauth? -%>
+  <p>
+    <%%# Omniauth integration example %>
+    <%%= link_to "Sign in with Developer", "/auth/developer" %>
+  </p>
+  <%- end -%>
+<%% end %>
+

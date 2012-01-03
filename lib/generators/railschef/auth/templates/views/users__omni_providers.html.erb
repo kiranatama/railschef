@@ -1,0 +1,18 @@
+<div>
+  <h3>Available provider(s) for this account</h3>
+  <ul>
+  <%% current_<%= user_singular_name %>.omni_providers.each do |op| %>
+    <li>
+      <%%= op.provider.titleize %>&nbsp;&nbsp;
+      <%%= link_to "Remove", op, :confirm => "Are you sure you want to remove #{op.provider} authentication?", :method => :delete %>
+    </li>
+  <%% end %>
+  </ul>
+</div>
+
+<div>
+  <h3>Add another provider to sign in with</h3>
+  <ul>
+    <li><%%= link_to "Developer", "/auth/developer" %></li>
+  </ul>
+</div>

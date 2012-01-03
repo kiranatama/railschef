@@ -1,0 +1,10 @@
+<%% title "Home", false %>
+
+<%% if current_<%= user_singular_name %> %>
+  <%%= "Signed in as #{current_<%= user_singular_name %>.email}. "%>
+  <%%= link_to 'My <%= account_name.titleize %>', <%= account_name %>_url %>
+  <%%= link_to '<%= logout_name_title %>', <%= logout_name %>_url %>
+<%% else %>
+  <%%= link_to '<%= login_name_title %>', <%= login_name %>_url %>
+<%% end %>
+

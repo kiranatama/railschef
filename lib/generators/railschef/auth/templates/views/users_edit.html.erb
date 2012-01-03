@@ -1,0 +1,8 @@
+<%% title "Edit <%= account_name %>" %>
+
+<%%= render @<%= user_singular_name %> %>
+<%- if options.omniauth? -%>
+<%%= render 'omni_providers' %>
+<%- end -%>
+
+Back to <%%= link_to 'Previous', root_url %>

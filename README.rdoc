@@ -1,0 +1,68 @@
+= Railschef
+
+A collection of useful Rails generator scripts.
+
+
+== Setup
+
+=== Rails 3
+
+Add the gem to your Gemfile.
+
+  gem "railschef", :group => :development
+
+Then you can run any of the included generators.
+
+  rails g railschef:auth User UserSession
+  
+== Supported environment
+
+* Rails 3.1.x
+* Authlogic
+
+== Included Generators
+
+* railschef:layout: generates generic layout, stylesheet, and helper files.
+* railschef:auth: generates user model with sign up and log in.
+
+To view the README for each generator, run it with the +help+ option.
+
+  rails g railschef:layout --help
+
+
+== Troubleshooting and FAQs
+
+<b>I get "undefined method 'title'" error.</b>
+
+Try running railschef:layout, that will generate this helper method. Or you can just change the templates to whatever approach you prefer for setting the title.
+
+
+<b>I can't set new attributes in my model.</b>
+
+Add the attribute to the attr_accessible line in the model.
+
+
+<b>I get "undefined method 'root_url'" error.</b>
+
+Some generators default redirecting to the root_url. Set this in your routes.rb file like this (substituting your controller name).
+
+  root :to => "home#index"
+
+and make sure you have create a replacement for home when you use '--skip-home' option.
+
+<b>I get a missing database error.</b>
+
+Run <tt>rake db:migrate</tt>.
+
+
+<b>I get a routing error when I try to submit a form.</b>
+
+Try restarting your development server. Sometimes it doesn't detect the change in the routing.
+
+
+== Found a bug?
+
+
+== Development
+
+
