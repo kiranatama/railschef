@@ -18,6 +18,8 @@ module Railschef
       class_option :omniauth, :type => :boolean,
         :desc => "Integrate OmniAuth with Authlogic."
 
+      class_option :test_unit, :desc => "Use test/unit for test files.", :group => 'Test framework', :type => :boolean
+
       def add_gems
         log_info "Add gems"
         add_gem "authlogic", :version => "~>3.1.0"
@@ -110,6 +112,15 @@ module Railschef
         end
       end
 
+      def create_test_files
+        if test_framework == :testunit
+          template 'tests/fixtures.yml', "test/fixtures/#{user_plural_name}.yml"
+          template "tests/#{test_framework}/user.rb", "test/unit/#{user_singular_name}_test.rb"
+          template "tests/#{test_framework}/controllers_users.rb", "test/functional/#{user_plural_name}_controller_test.rb"
+          template "tests/#{test_framework}/controllers_sessions.rb", "test/functional/#{session_plural_name}_controller_test.rb"
+        end
+      end
+
     private
       def user_singular_name
         user_name.underscore
@@ -149,6 +160,15 @@ module Railschef
 
       def logout_name_title
         logout_name.titleize
+      end
+
+      def test_framework
+        return @test_framework if defined?(@test_framework)
+        if options.testunit?
+          return @test_framework = :testunit
+        else
+          return @test_framework = File.exist?(destination_path('spec')) ? :rspec : :testunit
+        end
       end
 
       def self.next_migration_number(dirname) #:nodoc:
