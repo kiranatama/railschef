@@ -114,6 +114,8 @@ module Railschef
 
       def create_test_files
         if test_framework == :testunit
+          add_gem "mocha", :group => 'test'
+          add_gem "minitest", :group => 'test'
           template 'tests/fixtures.yml', "test/fixtures/#{user_plural_name}.yml"
           template "tests/#{test_framework}/user.rb", "test/unit/#{user_singular_name}_test.rb"
           template "tests/#{test_framework}/controllers_users.rb", "test/functional/#{user_plural_name}_controller_test.rb"

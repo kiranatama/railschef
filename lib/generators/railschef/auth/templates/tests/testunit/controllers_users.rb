@@ -15,6 +15,7 @@ class <%= user_class_name.pluralize %>ControllerTest < ActionController::TestCas
 
   def test_create_valid
     <%= user_class_name %>.any_instance.stubs(:valid?).returns(true)
+    <%= user_class_name %>.any_instance.stubs(:save_without_session_maintenance).returns(true)
     post :create
     assert_equal flash[:notice], "Your account has been created. Please check your e-mail for your account activation instructions!"
     assert_redirected_to <%= login_name %>_url
@@ -39,16 +40,16 @@ class <%= user_class_name.pluralize %>ControllerTest < ActionController::TestCas
   def test_update_invalid
     @controller.stubs(:current_<%= user_singular_name %>).returns(<%= user_class_name %>.first)
     <%= user_class_name %>.any_instance.stubs(:valid?).returns(false)
-    assert_equal flash[:error], "<%= user_class_name %> was failed to update."
     put :update, :id => "ignored"
+    assert_equal flash[:error], "<%= user_class_name %> was failed to update."
     assert_template 'edit'
   end
 
   def test_update_valid
     @controller.stubs(:current_<%= user_singular_name %>).returns(<%= user_class_name %>.first)
     <%= user_class_name %>.any_instance.stubs(:valid?).returns(true)
-    assert_equal flash[:notice], "<%= user_class_name %> was successfully updated."
     put :update, :id => "ignored"
+    assert_equal flash[:notice], "<%= user_class_name %> was successfully updated."
     assert_redirected_to root_url
   end
 end
