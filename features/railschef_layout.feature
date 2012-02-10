@@ -5,6 +5,9 @@ Feature: Railschef Layout Generator
 
   Scenario: Generate default layout
     Given a new Rails app
+    When I insert "gem 'therubyracer'" into "Gemfile" after line 20
+    Then I should successfully run "bundle install"
+
     When I run "rails g railschef:layout -f"
     Then I should see "stylesheet_link_tag "application"" in file "app/views/layouts/application.html.erb"
     And I should see the following files
@@ -13,6 +16,9 @@ Feature: Railschef Layout Generator
 
   Scenario: Generate named layout
     Given a new Rails app
+    When I insert "gem 'therubyracer'" into "Gemfile" after line 20
+    Then I should successfully run "bundle install"
+
     When I run "rails g railschef:layout admin"
     Then I should see "stylesheet_link_tag "admin"" in file "app/views/layouts/admin.html.erb"
     And I should see the following files

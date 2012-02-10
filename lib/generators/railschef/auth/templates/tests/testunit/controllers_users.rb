@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class <%= user_class_name.pluralize %>ControllerTest < ActionController::TestCase
+
   def test_new
     get :new
     assert_template 'new'
@@ -23,7 +24,7 @@ class <%= user_class_name.pluralize %>ControllerTest < ActionController::TestCas
 
   def test_edit_without_user
     get :edit, :id => "ignored"
-    assert_redirected_to login_url
+    assert_redirected_to <%= login_name %>_url
   end
 
   def test_edit
@@ -34,7 +35,7 @@ class <%= user_class_name.pluralize %>ControllerTest < ActionController::TestCas
 
   def test_update_without_user
     put :update, :id => "ignored"
-    assert_redirected_to login_url
+    assert_redirected_to <%= login_name %>_url
   end
 
   def test_update_invalid

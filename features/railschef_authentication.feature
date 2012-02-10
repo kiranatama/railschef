@@ -5,6 +5,9 @@ Feature: Railschef Authentication Generator
 
   Scenario: Generate default authentication
     Given a new Rails app
+    When I insert "gem 'therubyracer'" into "Gemfile" after line 20
+    Then I should successfully run "bundle install"
+
     When I run "rails g railschef:auth"
     Then I should see the following files
       | app/controllers/home_controller.rb             |
@@ -42,11 +45,16 @@ Feature: Railschef Authentication Generator
       | match 'reset_password/:reset_password_code' => 'users#reset_password', :as => :reset_password, :via => [:get, :put] |
     And I should see "include Authentication" in file "app/controllers/application_controller.rb"
     And I should see "config.autoload_paths << "#{config.root}/lib"" in file "config/application.rb"
-    When I run "rake db:migrate"
+    Then I should successfully run "bundle install"
+    When I run "rails g railschef:layout -f"
+    And I run "rake db:migrate"
     Then I should successfully run "rake test"
 
   Scenario: Generate named authentication
     Given a new Rails app
+    When I insert "gem 'therubyracer'" into "Gemfile" after line 20
+    Then I should successfully run "bundle install"
+
     When I run "rails g railschef:auth member"
     Then I should see the following files
       | app/controllers/home_controller.rb             |
@@ -84,11 +92,16 @@ Feature: Railschef Authentication Generator
       | match 'reset_password/:reset_password_code' => 'members#reset_password', :as => :reset_password, :via => [:get, :put] |
     And I should see "include Authentication" in file "app/controllers/application_controller.rb"
     And I should see "config.autoload_paths << "#{config.root}/lib"" in file "config/application.rb"
-    When I run "rake db:migrate"
+    Then I should successfully run "bundle install"
+    When I run "rails g railschef:layout -f"
+    And I run "rake db:migrate"
     Then I should successfully run "rake test"
 
   Scenario: Generate named and session named authentication
     Given a new Rails app
+    When I insert "gem 'therubyracer'" into "Gemfile" after line 20
+    Then I should successfully run "bundle install"
+
     When I run "rails g railschef:auth Member AccountSession"
     Then I should see the following files
       | app/controllers/home_controller.rb                  |
@@ -126,21 +139,26 @@ Feature: Railschef Authentication Generator
       | match 'reset_password/:reset_password_code' => 'members#reset_password', :as => :reset_password, :via => [:get, :put] |
     And I should see "include Authentication" in file "app/controllers/application_controller.rb"
     And I should see "config.autoload_paths << "#{config.root}/lib"" in file "config/application.rb"
-    When I run "rake db:migrate"
+    Then I should successfully run "bundle install"
+    When I run "rails g railschef:layout -f"
+    And I run "rake db:migrate"
     Then I should successfully run "rake test"
 
   Scenario: Generate named, session named and account named authentication
     Given a new Rails app
-    When I run "rails g railschef:auth Member LemperSession Usher"
+    When I insert "gem 'therubyracer'" into "Gemfile" after line 20
+    Then I should successfully run "bundle install"
+
+    When I run "rails g railschef:auth Member AccountSession Usher"
     Then I should see the following files
       | app/controllers/home_controller.rb                  |
-      | app/controllers/lemper_sessions_controller.rb       |
+      | app/controllers/account_sessions_controller.rb       |
       | app/controllers/members_controller.rb               |
-      | app/models/lemper_session.rb                        |
+      | app/models/account_session.rb                        |
       | app/models/member.rb                                |
       | app/views/home/index.html.erb                       |
-      | app/views/lemper_sessions/forgot_password.html.erb  |
-      | app/views/lemper_sessions/new.html.erb              |
+      | app/views/account_sessions/forgot_password.html.erb  |
+      | app/views/account_sessions/new.html.erb              |
       | app/views/members/new.html.erb                      |
       | app/views/members/_member.html.erb                  |
       | app/views/members/reset_password.html.erb           |
@@ -151,26 +169,31 @@ Feature: Railschef Authentication Generator
       | app/mailers/notifier.rb                             |
       | lib/authentication.rb                               |
       | db/migrate                                          |
-     And I should see "gem "authlogic", "~>3.1.0"" in file "Gemfile"
-     And I should see "Usher" in file "app/views/home/index.html.erb"
+    And I should see "gem "authlogic", "~>3.1.0"" in file "Gemfile"
+    And I should see "Usher" in file "app/views/home/index.html.erb"
     And I should not see the following files
       | public/index.html                                   |
     And I should see the following in file "config/routes.rb"
       | get 'home/index'                                            |
       | root :to => 'home#index'                                    |
-      | resources :lemper_sessions                                  |
-      | match 'login' => 'lemper_sessions#new',      :as => :login  |
-      | match 'logout' => 'lemper_sessions#destroy', :as => :logout |
+      | resources :account_sessions                                  |
+      | match 'login' => 'account_sessions#new',      :as => :login  |
+      | match 'logout' => 'account_sessions#destroy', :as => :logout |
       | resource :Usher, :controller => "members"                   |
       | resources :members                                          |
       | match 'activate(/:activation_code)' => 'members#activate', :as => :activate_account                           |
       | match 'send_activation(/:member_id)' => 'members#send_activation', :as => :send_activation                    |
-      | match 'forgot_password' => 'lemper_sessions#forgot_password', :as => :forgot_password, :via => [:get, :post]  |
-    When I run "rake db:migrate"
+      | match 'forgot_password' => 'account_sessions#forgot_password', :as => :forgot_password, :via => [:get, :post]  |
+    Then I should successfully run "bundle install"
+    When I run "rails g railschef:layout -f"
+    And I run "rake db:migrate"
     Then I should successfully run "rake test"
 
   Scenario: Generate default omniauth authentication
     Given a new Rails app
+    When I insert "gem 'therubyracer'" into "Gemfile" after line 20
+    Then I should successfully run "bundle install"
+
     When I run "rails g railschef:auth --omniauth"
     Then I should see the following files
       | app/controllers/home_controller.rb             |
@@ -218,7 +241,7 @@ Feature: Railschef Authentication Generator
     And I should see "include Authentication" in file "app/controllers/application_controller.rb"
     And I should see "config.autoload_paths << "#{config.root}/lib"" in file "config/application.rb"
 
-    # <%- if options.omniauth? -%> controllers, models and migration
+    # <%- if options.omniauth? -%>                                                             controllers, models and migration
     And I should see "assign_omniauth" in file "lib/authentication.rb"
     And I should see "apply_omniauth" in file "app/models/user.rb"
     And I should see "omni_providers" in file "app/models/user.rb"
@@ -227,11 +250,16 @@ Feature: Railschef Authentication Generator
     And I should see "Developer" in file "app/views/sessions/new.html.erb"
     And I should see "omni_provider" in file "app/views/users/edit.html.erb"
 
-    When I run "rake db:migrate"
+    Then I should successfully run "bundle install"
+    When I run "rails g railschef:layout -f"
+    And I run "rake db:migrate"
     Then I should successfully run "rake test"
 
   Scenario: Generate default skip home authentication
     Given a new Rails app
+    When I insert "gem 'therubyracer'" into "Gemfile" after line 20
+    Then I should successfully run "bundle install"
+
     When I run "rails g railschef:auth --skip-home"
     Then I should see the following files
       | app/controllers/sessions_controller.rb         |
@@ -267,14 +295,21 @@ Feature: Railschef Authentication Generator
       | match 'reset_password/:reset_password_code' => 'users#reset_password', :as => :reset_password, :via => [:get, :put] |
     And I should see "include Authentication" in file "app/controllers/application_controller.rb"
     And I should see "config.autoload_paths << "#{config.root}/lib"" in file "config/application.rb"
+    Then I should successfully run "bundle install"
+
     And I should not see the following in file "config/routes.rb"
       | get 'home/index'                                     |
       | root :to => 'home#index'                             |
-    When I run "rake db:migrate"
+
+    When I run "rails g railschef:layout -f"
+    And I run "rake db:migrate"
     Then I should successfully run "rake test"
 
   Scenario: Generate default login name custome authentication
     Given a new Rails app
+    When I insert "gem 'therubyracer'" into "Gemfile" after line 20
+    Then I should successfully run "bundle install"
+
     When I run "rails g railschef:auth --login-name=enter"
     Then I should see the following files
       | app/controllers/home_controller.rb             |
@@ -312,11 +347,17 @@ Feature: Railschef Authentication Generator
       | match 'reset_password/:reset_password_code' => 'users#reset_password', :as => :reset_password, :via => [:get, :put] |
     And I should see "include Authentication" in file "app/controllers/application_controller.rb"
     And I should see "config.autoload_paths << "#{config.root}/lib"" in file "config/application.rb"
-    When I run "rake db:migrate"
+    Then I should successfully run "bundle install"
+
+    When I run "rails g railschef:layout -f"
+    And I run "rake db:migrate"
     Then I should successfully run "rake test"
 
   Scenario: Generate default logout name custome authentication
     Given a new Rails app
+    When I insert "gem 'therubyracer'" into "Gemfile" after line 20
+    Then I should successfully run "bundle install"
+
     When I run "rails g railschef:auth --logout-name=quit"
     Then I should see the following files
       | app/controllers/home_controller.rb             |
@@ -354,6 +395,9 @@ Feature: Railschef Authentication Generator
       | match 'reset_password/:reset_password_code' => 'users#reset_password', :as => :reset_password, :via => [:get, :put] |
     And I should see "include Authentication" in file "app/controllers/application_controller.rb"
     And I should see "config.autoload_paths << "#{config.root}/lib"" in file "config/application.rb"
-    When I run "rake db:migrate"
+    Then I should successfully run "bundle install"
+
+    When I run "rails g railschef:layout -f"
+    And I run "rake db:migrate"
     Then I should successfully run "rake test"
 

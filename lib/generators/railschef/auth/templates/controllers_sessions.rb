@@ -11,7 +11,7 @@ class <%= session_class_name.pluralize %>Controller < ApplicationController
     @<%= session_singular_name %> = <%= session_class_name %>.new(params[:<%= session_singular_name %>])
     if @<%= session_singular_name %>.save
       flash[:notice] = "<%= login_name_title %> successful!"
-      redirect_back_or_default root_path
+      redirect_back_or_default root_url
     else
       render :action => :new
     end

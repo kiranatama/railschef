@@ -7,6 +7,7 @@ foo:
   password_salt: n6z_wtpWoIsHgQb5IcFd
   persistence_token: d5ddba13ed4408ea2b0a12ab18ed2d2eda086279736bdc121ca726a11f1e4b99217d9c534c2cc4ebb22729349c8c5fdbe1529e1f2c3c5859c62ef4dd9feea25c
   perishable_token: VyiXHtZ4HsFS62xCnK4I
+  single_access_token: DRpWcgGItsXPcvCOVctZGhSLQPXLvuIhDoXXaW5Oopt53uFsZssT8CeIoCzZxSX
   active: true
 
 bar:
@@ -16,5 +17,6 @@ bar:
   password_salt: UiAh9ejabnKRxqsiK0xO
   persistence_token: 19e074bd7cb506ab3e7e53e41f24f0ab3221c8cb68111f4c1aa43965114ad734233979a50a9463537487cdca18c279ac91c4bc83693d589625d446493322394c
   perishable_token: eRGJ2agxeuuds5qlJSqY
+  single_access_token: DRpWcgGItsXPcvCOVctZGhSLQPXLvuIhDoXXaW5Oopt53uFsZssT8CeIoCzZxSX
   active: true
 
