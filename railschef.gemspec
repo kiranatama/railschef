@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = "railschef"
-  s.version = "0.1.1"
+  s.version = "0.1.2"
   s.author = "Kiranatama"
   s.email = "info@kiranatama.com"
   s.homepage = "http://www.kiranatama.com"

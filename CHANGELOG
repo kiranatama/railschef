@@ -1,4 +1,11 @@
-0.1.1 (December th, 2011)
+0.1.2 (February 10th, 2012)
+
+* Add cucumber scenarion and test for railschef generator
+* Add UnitTest template
+* Add .gitignore file
+* Various bugfixes
+
+0.1.1 (January 3rd, 2012)
 
 * Add 'skip-home' as options which make home controller, view and routes become optional.
 * Make 'login' and 'logout' as option.
